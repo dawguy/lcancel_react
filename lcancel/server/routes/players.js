@@ -6,4 +6,8 @@ router.get('/players', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/players/bbb', function(req, res, next) {
+  res.send('respond with a resource');
+});
+
 module.exports = router;

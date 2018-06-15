@@ -28,9 +28,23 @@
     "express-generator": "^4.16.0",
     "expressjs": "^1.0.1",
     "immutable": "^3.8.2",
+    "jade": "^1.11.0",
     "mocha": "^5.2.0",
     "morgan": "^1.9.0",
     "npm": "^6.1.0",
+    "pg": "^7.4.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.4",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "hjs-webpack": "^9.2.0",
+    "postcss-loader": "^2.1.5",
+    "style-loader": "^0.21.0",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.12.0"
   }
 }
