@@ -22,4 +22,11 @@ var config = get_config({
     clearBeforeBuild: true
 });
 
+// TODO get postcss working
+// config.postcss = [].concat([
+//     require('precss')({}),
+//     require('autoprefixer')({}),
+//     require('cssnano')({})
+// ]);
+
 module.exports = config;
