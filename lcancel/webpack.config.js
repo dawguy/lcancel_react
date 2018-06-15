@@ -11,7 +11,7 @@ const get_config = require('hjs-webpack');
 const isDev = NODE_ENV === 'development';
 
 const root    = resolve(__dirname);
-const src     = join( root, 'src' );
+const src     = join( root, 'server/src' );
 const modules = join( root, 'node_modules' );
 const dest    = join( root, 'dist' );
 
