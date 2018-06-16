@@ -24,8 +24,7 @@ const environment_env = dotenv.config({
 
 const env_variables = Object.assign({}, dotenv_vars, environment_env);
 
-const defines = 
-    Object.keys( env_variables )
+const defines = Object.keys( env_variables )
     .reduce( ( memo, key ) => {
         const val = JSON.stringify( env_variables[key] );
         memo[`__${key.toUpperCase()}__`] = val;
@@ -34,13 +33,38 @@ const defines =
         __NODE_ENV__ : JSON.stringify( NODE_ENV )
     });
 
+let config = {
+    mode : 'development',
+    entry : join( src, 'app.js' ),
+    output : {
+        filename : 'index-webpack.bundle.js',
+        path : dest,
+    },
+    module : {
+        rules : [
+            {
+                test : /\.(js|jsx)$/,
+                exclude : /node_modules/,
+                use : [
+                    'babel-loader',
+                ],
+            },
+            {
+                test : /\.css$/,
+                use : [
+                    { loader : 'style-loader' },
+                    {
+                        loader : 'css-loader',
+                        options : {
+                            modules : true
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
 
-var config = get_config({
-    isDev : isDev,
-    in: join( src, 'app.js' ),
-    out: dest,
-    clearBeforeBuild: true
-});
 
 // config.hooks = {
     
