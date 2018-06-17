@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import app_css from './app.css';
-import styles from './styles.module.css';
+import style from './app.css';
 
 class App extends React.Component {
   render() {
     return(
-      <div className="wrapper">
-        text text text
+      <div className="{style.wrapper}">
+        text text text aaa
       </div>
     )
   }
 }
 
-const mountNode = document.querySelector( '#root' );
+const mountNode = document.querySelector( '#index' );
 ReactDOM.render( <App />, mountNode );

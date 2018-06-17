@@ -7,6 +7,8 @@ const path    = require('path');
       join    = path.join;
       resolve = path.resolve;
 
+const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
+
 const get_config = require('hjs-webpack');
 
 const isDev = NODE_ENV === 'development';
@@ -62,7 +64,12 @@ let config = {
                 ]
             }
         ]
-    }
+    },
+    plugins : [
+        new HtmlWebpackPlugin({
+            template : path.join( src, 'index.html' ),
+        }),
+    ]
 }
 
 
