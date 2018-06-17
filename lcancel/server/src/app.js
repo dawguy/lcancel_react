@@ -6,7 +6,7 @@ import style from './app.css';
 class App extends React.Component {
   render() {
     return(
-      <div className="{style.wrapper}">
+      <div className={style.wrapper}>
         text text text aaa
       </div>
     )
