@@ -15,7 +15,7 @@ exports.setup = function(options, seedLink) {
 };
 
 exports.up = function(db) {
-  return db.createTable( 'players', {
+  return db.createTable( 'users', {
     id : { type: 'int', primaryKey: true, autoIncrement: true },
     name : { type : 'string', notNull : true },
     elo : { type : 'int', defaultValue : 1000, notNull : true }
@@ -23,7 +23,7 @@ exports.up = function(db) {
 };
 
 exports.down = function(db) {
-  return db.dropTable( 'players', {
+  return db.dropTable( 'users', {
     ifExists : true
   });
 };

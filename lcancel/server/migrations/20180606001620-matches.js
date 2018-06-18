@@ -17,21 +17,21 @@ exports.setup = function(options, seedLink) {
 exports.up = function(db) {
   return db.createTable( 'matches', {
     id : { type: 'int', primaryKey: true, autoIncrement: true },
-    winning_player : {
+    winning_user : {
       type : 'int',
       notNull : true,
       foreignKey : {
-        name : 'winning_player_id_fk',
-        table : 'players',
+        name : 'winning_user_id_fk',
+        table : 'users',
         mapping : 'id'
       }
     },
-    losing_player : {
+    losing_user : {
       type : 'int',
       notNull : true,
       foreignKey : {
-        name : 'losing_player_id_fk',
-        table : 'players',
+        name : 'losing_user_id_fk',
+        table : 'users',
         mapping : 'id'
       }
     },
@@ -62,8 +62,8 @@ exports.up = function(db) {
         mapping : 'id'
       }
     },
-    winning_player_stocks : { type : 'int', notNull : true },
-    losing_player_stocks : { type : 'int', notNull : true },
+    winning_user_stocks : { type : 'int', notNull : true },
+    losing_user_stocks : { type : 'int', notNull : true },
   });
 };
 
