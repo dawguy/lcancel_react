@@ -1,0 +1,8 @@
+const http = require('http');
+const l_server = require( '../server/src/l_server' );
+
+const port = parseInt( process.env.PORT, 10 ) || 8000;
+l_server.set( 'port', port );
+
+const server = http.createServer( l_server );
+server.listen( port );

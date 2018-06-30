@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const charactersController = require( '../controllers' ).characters;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send('Hello world!');
-});
+module.exports = ( app ) => {
+    app.get( '/api', ( req, res ) => res.status( 200 ).send({
+        message : 'Welcome to the API!',
+    }));
 
-module.exports = router;
+    app.post( '/api/characters', charactersController.create );
+}
