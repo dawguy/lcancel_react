@@ -1,4 +1,4 @@
-const Character = request('../models').Character;
+const Character = require('../models/character');
 
 module.exports = {
     create( req, res ){
