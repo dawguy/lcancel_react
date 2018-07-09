@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Match = sequelize.define('Match', {
+  var Match = sequelize.define('match', {
     winning_user: DataTypes.INTEGER,
     losing_user: DataTypes.INTEGER,
     winning_character: DataTypes.INTEGER,
