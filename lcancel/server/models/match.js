@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
     stage: DataTypes.INTEGER
   }, {});
   Match.associate = function(models) {
-    // associations can be defined here
   };
   return Match;
 };
