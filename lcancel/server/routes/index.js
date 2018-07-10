@@ -5,13 +5,14 @@ module.exports = ( app ) => {
         message : 'Welcome to the API!',
     }));
 
-    app.get( '/api/characters', ( req, res ) => res.status( 200 ).send({
-        message : 'Loading characters...',
-    }));
+    app.get( '/api/characters', ( req, res ) => {
+        console.log( req.body );
+        res.status( 200 ).send({
+            message : 'Loading characters...',
+        });
+    });
 
     app.post( '/api/characters', (req, res ) => {
-        console.log( charactersController )
-
-        charactersController.create(req,res);
+        charactersController.create( req, res );
     });
 }
