@@ -4,7 +4,6 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   Stage.associate = function(models) {
-    Stage.belongsTo( models.match, { as : 'stage' } );
   };
   return Stage;
 };
