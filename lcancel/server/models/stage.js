@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   Stage.associate = function(models) {
+    Stage.hasOne( models.match, { as : 'stage', foreignKey : 'stage' } );
   };
   return Stage;
 };
