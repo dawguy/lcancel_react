@@ -18,7 +18,7 @@ module.exports = {
     for( let i = 0; i < 100; i++ )
     {
         let name = Math.random().toString( 36 ).substring( 7 );
-        let elo = (Math.random() * - 800) + 1000;
+        let elo = ( ( ( 2 * Math.random() ) - 1 ) * 800) + 1000;
         random_users.push({
           name : name,
           elo : elo,
