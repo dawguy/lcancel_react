@@ -3,7 +3,9 @@
 module.exports = (sequelize, DataTypes) => {
   var Character = sequelize.define('character', {
     name: DataTypes.STRING,
-  }, {});
+  }, {
+    timestamps : false,
+  });
 
   Character.associate = function( models ){
     Character.hasOne( models.match, { as : 'winning_character', foreignKey : 'winning_character' } );

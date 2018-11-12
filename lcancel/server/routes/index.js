@@ -1,8 +1,11 @@
 const charactersController = require( '../controllers' ).characters;
 const matchesController = require( '../controllers' ).matches;
 const usersController = require( '../controllers' ).users;
+const stagesController = require( '../controllers' ).stages;
+
 
 module.exports = ( app ) => {
+    // RETRIEVAL
     app.get( '/api', ( req, res ) => res.status( 200 ).send({
         message : 'Welcome to the API!',
     }));
@@ -31,10 +34,6 @@ module.exports = ( app ) => {
         matchesController.user_matchup( req, res );
     });
 
-    app.post( '/api/matches', (req, res ) => {
-        matchesController.create( req, res );
-    });
-
     app.get( '/api/users/all/:page', ( req, res ) => {
         usersController.paginate( req, res );
     });
@@ -50,5 +49,27 @@ module.exports = ( app ) => {
 
     app.get( '/api/characters/all', ( req, res ) => {
         charactersController.list( req, res );
+    });
+
+    app.get( '/api/characters/:id', ( req, res ) => {
+        charactersController.get( req, res );
+    });
+
+    app.get( '/api/stages/all', ( req, res ) => {
+        stagesController.list( req, res );
+    });
+
+    app.get( '/api/stages/:id', ( req, res ) => {
+        stagesController.get( req, res );
+    });
+
+    // CREATION
+
+    app.post( '/api/matches', (req, res ) => {
+        matchesController.create( req, res );
+    });
+
+    app.post( '/api/users', (req, res ) => {
+        usersController.create( req, res );
     });
 }
