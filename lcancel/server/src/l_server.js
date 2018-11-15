@@ -10,10 +10,11 @@ l_server.use( body_parser.json() );
 l_server.use( body_parser.urlencoded( { extended: false }) );
 
 // Load the routes
-
+l_server.all( '/*', function( req, res, next ) {
+    res.header( 'Access-Control-Allow-Origin', '*' );
+    res.header( 'Access-Control-Allow-Headers', 'X-Requested-With' );
+    next();
+})
 require( '../routes' )( l_server );
-
-// // l_server.get( '*', ( req, res ) => res.status( 200 ).send({
-// }));
     
-    module.exports = l_server;
+module.exports = l_server;
