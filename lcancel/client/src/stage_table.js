@@ -12,7 +12,9 @@ class StageTable extends React.Component {
                 </div>
                 <ul>
                     {this.props.stages.map( ( stage, index ) => {
-                        return <Stage key={index} name={stage.name} pk={stage.pk}></Stage>
+                        let selected = ( this.props.selected_stage === stage.id );
+
+                        return <Stage key={index} name={stage.name} pk={stage.id} selected={selected}></Stage>
                     })}
                 </ul>
             </div>

@@ -4,8 +4,11 @@ import style from './app.css';
 
 class Character extends React.Component {
     render() {
+        let selected = this.props.selected ? 'selected' : '';
+        let classes = `character ${selected}`
+
         return(
-            <li className={style.character}>
+            <li className={classes}>
                 {this.props.name}
             </li>
         )

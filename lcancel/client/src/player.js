@@ -8,7 +8,7 @@ class Player extends React.Component {
     render() {
         return(
             <div>
-                <CharacterTable characters={this.props.characters}></CharacterTable>
+                <CharacterTable characters={this.props.characters} selected_character={this.props.selected_character}></CharacterTable>
                 <LivesTable lives={4}></LivesTable>
             </div>
         );

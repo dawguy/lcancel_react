@@ -4,8 +4,11 @@ import style from './app.css';
 
 class Stage extends React.Component {
     render() {
+        let selected = this.props.selected ? 'selected' : '';
+        let classes = `stage ${selected}`
+
         return(
-            <li className={style.stage}>
+            <li className={classes}>
                 {this.props.name}
             </li>
         )

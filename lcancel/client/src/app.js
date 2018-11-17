@@ -5,51 +5,60 @@ import Player from './player';
 import StageTable from './stage_table';
 
 class App extends React.Component {
-  render() {
-    var characters = [
-      {
-        name : 'Mario',
-        pk : 1,
-      },
-      {
-        name : 'Bowser',
-        pk : 2,
-      },
-      {
-        name : 'Peach',
-        pk : 3,
-      },
-    ];
+  constructor() {
+    super();
+    this.state = {
+      // p1_character : null,
+      // p2_character : null,
+      // p1_lives : 4,
+      // p2_lives : 4,
+      // stage : null,
+      // characters : [],
+      // stages : [],
+      p1_character : 3,
+      p2_character : 11,
+      p1_lives : 4,
+      p2_lives : 4,
+      stage : 2,
+      characters : [],
+      stages : [],
+    };
+  }
 
-    var stages = [
-      {
-        name : 'Dreamland',
-        pk : 1,
-      },
-      {
-        name : 'Final Destination',
-        pk : 2,
-      },
-      {
-        name : 'Battlefield',
-        pk : 3,
-      },
-      {
-        name : 'Fountain Of Dreams',
-        pk : 4,
-      },
-      {
-        name : 'Pokemon Stadium',
-        pk : 5,
-      },
-    ]
+  componentDidMount() {
+    Promise.all( [this.get_characters(), this.get_stages()] )
+    .then( ( [characters, stages] ) => {
+
+      this.setState({
+        characters : characters,
+        stages : stages,
+      });
+    });
+  }
+
+  get_characters() {
+    const url = 'http://localhost:8000/api/characters/all';
+
+    return fetch( url )
+    .then( results => results.json() );
+  }
+
+  get_stages() {
+    const url = 'http://localhost:8000/api/stages/all';
+    
+    return fetch( url )
+    .then( results => results.json() );
+  }
+
+
+  render() {
     return(
       <div>
         <div className="players">
-          <Player characters={characters}></Player>
-          <Player characters={characters}></Player>
+          <Player characters={this.state.characters} selected_character={this.state.p1_character} lives={this.state.p1_lives}></Player>
+          <Player characters={this.state.characters} selected_character={this.state.p2_character} lives={this.state.p2_lives}></Player>
         </div>
-        <StageTable stages={stages}></StageTable>
+        <StageTable stages={this.state.stages} selected_stage={this.state.stage}></StageTable>
         <button>Submit</button>
       </div>
     )
