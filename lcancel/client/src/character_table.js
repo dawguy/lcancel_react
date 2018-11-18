@@ -1,16 +1,17 @@
 import React from 'react';
 
 import style from './app.css';
+import classNames from 'classnames';
 import Character from './character';
 
 class CharacterTable extends React.Component {
     render() {
         return(
-            <div className={style.character_table}>
-                <div className={style.table_label}>
+            <div>
+                <div className={style.character_label}>
                     Character
                 </div>
-                <ul>
+                <ul className={classNames( style.flex_ul, style.characters )}>
                     {this.props.characters.map( ( character, index ) => {
                         let selected = ( this.props.selected_character === character.id );
 

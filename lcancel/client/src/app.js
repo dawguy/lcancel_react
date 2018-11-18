@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import styles from './app.css';
 import Player from './player';
 import StageTable from './stage_table';
 
@@ -54,9 +55,9 @@ class App extends React.Component {
   render() {
     return(
       <div>
-        <div className="players">
-          <Player characters={this.state.characters} selected_character={this.state.p1_character} lives={this.state.p1_lives}></Player>
-          <Player characters={this.state.characters} selected_character={this.state.p2_character} lives={this.state.p2_lives}></Player>
+        <div className={styles.players}>
+          <Player player_class={styles.player_1} characters={this.state.characters} selected_character={this.state.p1_character} lives={this.state.p1_lives}></Player>
+          <Player player_class={styles.player_2} characters={this.state.characters} selected_character={this.state.p2_character} lives={this.state.p2_lives}></Player>
         </div>
         <StageTable stages={this.state.stages} selected_stage={this.state.stage}></StageTable>
         <button>Submit</button>

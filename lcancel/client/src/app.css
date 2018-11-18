@@ -1,28 +1,41 @@
-.App {
+.players { /* A container for the two players to rest side by side */
+  display: flex;
+}
+
+.player_one {
+  flex: 0 0 50%;
+}
+
+.player_two {
+  flex: 1;
+}
+
+.flex_ul{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  list-style-type: none;
+  -webkit-flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex_ul li {
+  width: 80px;
+  height: 40px;
+  margin: 2px;
+  border: 1px solid black;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.lives {
+  display: inline-block;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.characters {
+  color : green;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.stages {
+  color: red;
 }

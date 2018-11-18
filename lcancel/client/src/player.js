@@ -7,7 +7,8 @@ import LivesTable from './lives_table';
 class Player extends React.Component {
     render() {
         return(
-            <div>
+            <div className={this.props.player_class}>
+                <label>Player</label>
                 <CharacterTable characters={this.props.characters} selected_character={this.props.selected_character}></CharacterTable>
                 <LivesTable lives={4}></LivesTable>
             </div>
