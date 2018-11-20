@@ -29,7 +29,7 @@
 }
 
 .lives {
-  display: inline-block;
+  color: blue;
 }
 
 .characters {
@@ -38,4 +38,12 @@
 
 .stages {
   color: red;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit {
+  color: black;
+  padding: 10px;
+  margin: 5px;
 }

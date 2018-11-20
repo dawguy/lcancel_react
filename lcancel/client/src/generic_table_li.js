@@ -2,10 +2,10 @@ import React from 'react';
 
 import style from './app.css';
 
-class Stage extends React.Component {
+class GenericTableLi extends React.Component {
     render() {
         let selected = this.props.selected ? 'selected' : '';
-        let classes = `stage ${selected}`
+        let classes = `${this.props.list_item_style} ${selected}`
 
         return(
             <li className={classes}>
@@ -15,4 +15,4 @@ class Stage extends React.Component {
     }
 }
 
-module.exports = Stage;
+module.exports = GenericTableLi;

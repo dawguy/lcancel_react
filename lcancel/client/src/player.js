@@ -1,16 +1,15 @@
 import React from 'react';
 
-import style from './app.css';
-import CharacterTable from './character_table';
-import LivesTable from './lives_table';
+import styles from './app.css';
+import GenericTable from './generic_table';
 
 class Player extends React.Component {
     render() {
         return(
-            <div className={this.props.player_class}>
-                <label>Player</label>
-                <CharacterTable characters={this.props.characters} selected_character={this.props.selected_character}></CharacterTable>
-                <LivesTable lives={4}></LivesTable>
+            <div className={styles.player}>
+                <h1>Player</h1>
+                <GenericTable table_label={'Characters'} list_items={this.props.characters} selected_li={this.props.selected_character} list_style={styles.characters}></GenericTable>
+                <GenericTable table_label={'Lives'} list_items={this.props.lives} selected_li={this.props.selected_live} list_style={styles.lives}></GenericTable>
             </div>
         );
     }

@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import styles from './app.css';
+import _ from 'lodash';
+
+import GenericTable from './generic_table';
 import Player from './player';
-import StageTable from './stage_table';
 
 class App extends React.Component {
   constructor() {
@@ -51,16 +53,23 @@ class App extends React.Component {
     .then( results => results.json() );
   }
 
-
   render() {
+    let lives = [
+      { id : 0, name : 0},
+      { id : 1, name : 1},
+      { id : 2, name : 2},
+      { id : 3, name : 3},
+      { id : 4, name : 4},
+    ];
+
     return(
       <div>
         <div className={styles.players}>
-          <Player player_class={styles.player_1} characters={this.state.characters} selected_character={this.state.p1_character} lives={this.state.p1_lives}></Player>
-          <Player player_class={styles.player_2} characters={this.state.characters} selected_character={this.state.p2_character} lives={this.state.p2_lives}></Player>
+          <Player player_class={styles.player_1} characters={this.state.characters} selected_character={this.state.p1_character} lives={lives} selected_live={this.state.p1_lives}></Player>
+          <Player player_class={styles.player_2} characters={this.state.characters} selected_character={this.state.p2_character} lives={lives} selected_live={this.state.p2_lives}></Player>
         </div>
-        <StageTable stages={this.state.stages} selected_stage={this.state.stage}></StageTable>
-        <button>Submit</button>
+        <GenericTable table_label={'Stages'} list_items={this.state.stages} selected_li={this.state.stage} list_style={styles.stages}></GenericTable>
+        <button className={styles.submit}>Submit</button>
       </div>
     )
   }
