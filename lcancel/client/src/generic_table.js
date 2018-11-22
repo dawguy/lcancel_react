@@ -15,7 +15,7 @@ class GenericTable extends React.Component {
                     {this.props.list_items.map( ( list_item, index ) => {
                         let selected = ( this.props.selected_li === list_item.id );
 
-                        return <TableLiGeneric key={index} name={list_item.name} pk={list_item.id} selected={selected}></TableLiGeneric>
+                        return <TableLiGeneric key={index} name={list_item.name} pk={list_item.id} click_handler={this.props.click_handler} player_number={this.props.player_number} selected={selected}></TableLiGeneric>
                     })}
                 </ul>
             </div>

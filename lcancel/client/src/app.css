@@ -32,6 +32,10 @@
   color: blue;
 }
 
+.selected{
+  background-color: gray;
+}
+
 .characters {
   color : green;
 }

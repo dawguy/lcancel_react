@@ -1,14 +1,14 @@
 import React from 'react';
 
-import style from './app.css';
+import styles from './app.css';
 
 class GenericTableLi extends React.Component {
     render() {
-        let selected = this.props.selected ? 'selected' : '';
-        let classes = `${this.props.list_item_style} ${selected}`
+        let selected = this.props.selected ? styles.selected : '';
+        let classes = `${selected}`
 
         return(
-            <li className={classes}>
+            <li onClick={ (e) => this.props.click_handler( e, this.props.pk, this.props.player_number ) } value={this.props.pk} className={classes}>
                 {this.props.name}
             </li>
         )
