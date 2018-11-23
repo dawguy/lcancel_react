@@ -38,12 +38,14 @@ module.exports = {
     },
 
     search( req, res ){
-        const {gt, lte, ne, in: opIn} = Sequelize.Op;
+        const {gt, lte, ne, regexp, in: opIn} = Sequelize.Op;
 
         let search_params = {};
 
         if( typeof req.query.name !== 'undefined' ){
-            search_params['name'] = req.query.name;
+            search_params['name'] = {
+                [regexp] : req.query.name,
+            };
         }
 
         if( typeof req.query.elo_greater_than !== 'undefined' ){
