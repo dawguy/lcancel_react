@@ -11,6 +11,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      p1 : null,
+      p2 : null,
       p1_character : null,
       p2_character : null,
       p1_lives : 4,
@@ -20,6 +22,7 @@ class App extends React.Component {
       stages : [],
     };
 
+    this.changePlayer = this.changePlayer.bind( this );
     this.changeStage = this.changeStage.bind( this );
     this.changeCharacter = this.changeCharacter.bind( this );
     this.changeLives = this.changeLives.bind( this );
@@ -64,6 +67,10 @@ class App extends React.Component {
     this.setState( state => ({
       [prop_name] : id,
     }));
+  }
+
+  changePlayer( e, id ) {
+
   }
 
   changeStage( e, id ) {
