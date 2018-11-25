@@ -46,9 +46,12 @@ class UserSelection extends React.Component {
     render(){
         let select_label = this.props.selected_user ? 'Change User:' : 'Select User:';
         let user_name_label = this.props.user_name ? <div><label>Selected User: {this.props.user_name}</label></div> : '';
+        const div_style = {
+
+        };
 
         return (
-            <div>
+            <div style={div_style}>
                 {user_name_label}
                 <label>{select_label}</label>
                 <input type="text" value={this.state.search_term} onChange={this.handleTextInput}></input>

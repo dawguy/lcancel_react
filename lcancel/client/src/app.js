@@ -28,6 +28,7 @@ class App extends React.Component {
     this.changeCharacter = this.changeCharacter.bind( this );
     this.changeLives = this.changeLives.bind( this );
     this.changeUser = this.changeUser.bind( this );
+    this.handleSubmit = this.handleSubmit.bind( this );
   }
 
   componentDidMount() {
@@ -55,6 +56,33 @@ class App extends React.Component {
     .then( results => results.json() );
   }
 
+  handleSubmit( e ){
+    const url = 'http://localhost:8000/api/matches';
+    if( !this.validate_state ){
+      alert( 'Missing some properties' );
+    }
+
+    console.log();
+
+
+  }
+
+  validate_state(){
+    if( ( typeof p1_user_id === 'undefined' || p1_user_id === null ) ||
+        ( typeof p2_user_id === 'undefined' || p2_user_id === null ) ||
+        ( typeof p1_character === 'undefined' || p1_character === null ) ||
+        ( typeof p2_character === 'undefined' || p2_character === null ) ||
+        ( typeof p1_lives === 'undefined' || p1_lives === 4 ) ||
+        ( typeof p2_lives === 'undefined' || p2_lives === 4 ) ||
+        ( typeof stage === 'undefined' || stage === 1 ) 
+      )
+    {
+        return false;
+    }
+
+      return true;
+  }
+
   changeLives( e, id, player_number ) {
     let prop_name = `p${player_number}_lives`;
 
@@ -77,8 +105,6 @@ class App extends React.Component {
 
     let name = e.target.getAttribute( 'data-name' );
     let id = e.target.value;
-
-    console.log( name, id );
 
     this.setState( state => ({
       [prop_name] : name,
@@ -108,7 +134,7 @@ class App extends React.Component {
           <Player user_name={this.state.p2_user_name} player_class={styles.player_2} characters={this.state.characters} player_number={2} selected_character={this.state.p2_character} lives={lives} selected_live={this.state.p2_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter} user_click_handler={this.changeUser}></Player>
         </div>
         <GenericTable table_label={'Stages'} click_handler={this.changeStage} list_items={this.state.stages} selected_li={this.state.stage} list_style={styles.stages}></GenericTable>
-        <button className={styles.submit}>Submit</button>
+        <button onClick={this.handleSubmit} className={styles.submit}>Submit</button>
       </div>
     )
   }
