@@ -27,7 +27,6 @@ class UserSelection extends React.Component {
         return fetch( url )
         .then( results => results.json() )
         .then( data => {
-            console.log( data );
             this.setState({
                 users : data,
             });
@@ -45,11 +44,15 @@ class UserSelection extends React.Component {
     }
 
     render(){
+        let select_label = this.props.selected_user ? 'Change User:' : 'Select User:';
+        let user_name_label = this.props.user_name ? <div><label>Selected User: {this.props.user_name}</label></div> : '';
+
         return (
             <div>
-                <label>Select User:</label>
+                {user_name_label}
+                <label>{select_label}</label>
                 <input type="text" value={this.state.search_term} onChange={this.handleTextInput}></input>
-                <UserSuggestions items={this.state.users}></UserSuggestions>
+                <UserSuggestions player_number={this.props.player_number} handleChoice={this.props.handleChoice} items={this.state.users}></UserSuggestions>
             </div>
         );
     }

@@ -11,8 +11,10 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      p1 : null,
-      p2 : null,
+      p1_user_name : null,
+      p2_user_name : null,
+      p1_user_id : null,
+      p2_user_id : null,
       p1_character : null,
       p2_character : null,
       p1_lives : 4,
@@ -22,10 +24,10 @@ class App extends React.Component {
       stages : [],
     };
 
-    this.changePlayer = this.changePlayer.bind( this );
     this.changeStage = this.changeStage.bind( this );
     this.changeCharacter = this.changeCharacter.bind( this );
     this.changeLives = this.changeLives.bind( this );
+    this.changeUser = this.changeUser.bind( this );
   }
 
   componentDidMount() {
@@ -69,8 +71,19 @@ class App extends React.Component {
     }));
   }
 
-  changePlayer( e, id ) {
+  changeUser( e, player_number ) {
+    let prop_name = `p${player_number}_user_name`;
+    let prop_id = `p${player_number}_user_id`;
 
+    let name = e.target.getAttribute( 'data-name' );
+    let id = e.target.value;
+
+    console.log( name, id );
+
+    this.setState( state => ({
+      [prop_name] : name,
+      [prop_id] : id,
+    }));
   }
 
   changeStage( e, id ) {
@@ -91,8 +104,8 @@ class App extends React.Component {
     return(
       <div>
         <div className={styles.players}>
-          <Player player_class={styles.player_1} characters={this.state.characters} player_number={1} selected_character={this.state.p1_character} lives={lives} selected_live={this.state.p1_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter}></Player>
-          <Player player_class={styles.player_2} characters={this.state.characters} player_number={2} selected_character={this.state.p2_character} lives={lives} selected_live={this.state.p2_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter}></Player>
+          <Player user_name={this.state.p1_user_name} player_class={styles.player_1} characters={this.state.characters} player_number={1} selected_character={this.state.p1_character} lives={lives} selected_live={this.state.p1_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter} user_click_handler={this.changeUser}></Player>
+          <Player user_name={this.state.p2_user_name} player_class={styles.player_2} characters={this.state.characters} player_number={2} selected_character={this.state.p2_character} lives={lives} selected_live={this.state.p2_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter} user_click_handler={this.changeUser}></Player>
         </div>
         <GenericTable table_label={'Stages'} click_handler={this.changeStage} list_items={this.state.stages} selected_li={this.state.stage} list_style={styles.stages}></GenericTable>
         <button className={styles.submit}>Submit</button>
