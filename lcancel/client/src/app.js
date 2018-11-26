@@ -58,26 +58,71 @@ class App extends React.Component {
 
   handleSubmit( e ){
     const url = 'http://localhost:8000/api/matches';
-    if( !this.validate_state ){
-      alert( 'Missing some properties' );
+    if( !this.validate_state() ){
+      alert( 'Invalid match attributes' );
+      return;
     }
 
-    console.log();
+    let winner = {
+      user : this.state.p1_user_id,
+      character : this.state.p1_character,
+    };
+    let loser = {
+      user : this.state.p2_user_id,
+      character : this.state.p2_user_id,
+    };
 
+    if( this.state.p2_lives > this.state.p1_lives ){
+      let temp = winner;
+      winner = loser;
+      loser = temp;
+    }
+    else if( this.state.p2_lives !== 0 && this.state.p1_lives !== 0 &&
+             ( this.state.p2_lives === 0 && this.state.p1_lives === 0 )
+           ){
+      alert( 'We do not currently accept draws' );
+      return;
+    }
 
+    let params = {
+      method : 'POST',
+      headers : {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({
+        winning_user : winner.user,
+        losing_user : loser.user,
+        winning_character : winner.character,
+        losing_character : loser.character,
+        stage : this.state.stage
+      })
+    };
+
+    return fetch( url, params )
+    .then( (json) => {
+      this.setState({
+        p1_lives : 4,
+        p2_lives : 4,
+      });
+    });
   }
 
   validate_state(){
-    if( ( typeof p1_user_id === 'undefined' || p1_user_id === null ) ||
-        ( typeof p2_user_id === 'undefined' || p2_user_id === null ) ||
-        ( typeof p1_character === 'undefined' || p1_character === null ) ||
-        ( typeof p2_character === 'undefined' || p2_character === null ) ||
-        ( typeof p1_lives === 'undefined' || p1_lives === 4 ) ||
-        ( typeof p2_lives === 'undefined' || p2_lives === 4 ) ||
-        ( typeof stage === 'undefined' || stage === 1 ) 
+    if( ( typeof this.state.p1_user_id === 'undefined' || this.state.p1_user_id === null ) ||
+        ( typeof this.state.p2_user_id === 'undefined' || this.state.p2_user_id === null ) ||
+        ( typeof this.state.p1_character === 'undefined' || this.state.p1_character === null ) ||
+        ( typeof this.state.p2_character === 'undefined' || this.state.p2_character === null ) ||
+        ( typeof this.state.p1_lives === 'undefined' || this.state.p1_lives === null ) ||
+        ( typeof this.state.p2_lives === 'undefined' || this.state.p2_lives === null ) ||
+        ( typeof this.state.stage === 'undefined' || this.state.stage === null ) 
       )
     {
         return false;
+    }
+
+    if( this.state.p1_user_id === this.state.p2_user_id ){
+      return false;
     }
 
       return true;
