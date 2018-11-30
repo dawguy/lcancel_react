@@ -1,19 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import AddMatch from 'add_match';
 
-class Home extends React.Component{
+class NewsItem extends React.Component{
     constructor(){
-
+        super();
     }
 
     render(){
+        let title = this.props.title ? <h3>{this.props.title}</h3> : '';
+
         return(
             <div>
-                abc
+                {title}
+                {this.props.text}
             </div>
         );
     }
 }
 
-module.exports = Home;
+module.exports = NewsItem;
