@@ -65,6 +65,9 @@ let config = {
             }
         ]
     },
+    devServer : {
+        historyApiFallback : true,
+    },
     plugins : [
         new HtmlWebpackPlugin({
             template : path.join( src, 'index.html' ),
@@ -74,7 +77,7 @@ let config = {
 
 
 // config.hooks = {
-    
+
 // }
 
 // config.plugins.push( new webpack.ProvidePlugin( defines ) );
