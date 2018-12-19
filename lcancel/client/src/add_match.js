@@ -196,7 +196,4 @@ class AddMatch extends React.Component {
   }
 }
 
-const mountNode = document.querySelector( '#index' );
-ReactDOM.render( <AddMatch />, mountNode );
-
 module.exports = AddMatch;
