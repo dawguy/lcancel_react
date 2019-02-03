@@ -41,6 +41,7 @@ let config = {
     output : {
         filename : 'index-webpack.bundle.js',
         path : dest,
+        publicPath : '/',
     },
     module : {
         rules : [
