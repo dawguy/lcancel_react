@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 
 import Home from './home';
 import AddMatch from './add_match';
+import Matchup from './matchup';
 
 class App extends React.Component {
   constructor() {
@@ -21,6 +22,8 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route path="/add_match" component={AddMatch}></Route>
+            <Route path="/matchup/characters/:a/:b" component={Matchup}></Route>
+            <Route path="/matchup/characters/:a" component={Matchup}></Route>
           </Switch>
         </div>
       </BrowserRouter>

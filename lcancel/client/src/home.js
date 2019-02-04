@@ -14,22 +14,20 @@ class Home extends React.Component{
         let block_items = [
             {
                 title : 'Add Match',
-                icon   : null,
+                icon : null,
+                link : '/add_match',
                 description : 'Report a match'
             },
             {
                 title : 'Lookup Player',
                 icon   : null,
+                link : '/lookup_player',
                 description : 'TODO:'
             },
             {
                 title : 'Featured Matchup',
                 icon : null,
-                component : Matchup,
-                component_data : {
-                    character_1 : 11, // Fox
-                    character_2 : 10, // Falco
-                },
+                link : '/matchup/characters/11/10',
                 description : 'Fox vs Falco'
             }
         ]
@@ -39,7 +37,7 @@ class Home extends React.Component{
                 <News></News>
                 <div>
                     {block_items.map( (item, index) => {
-                        return <BlockItem key={index} title={item.title} icon={item.icon} description={item.description} component={item.component} component_data={item.component_data}></BlockItem>
+                        return <BlockItem key={index} title={item.title} icon={item.icon} description={item.description} link={item.link}></BlockItem>
                     })}
                 </div>
             </div>

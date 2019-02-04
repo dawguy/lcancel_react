@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './app.css';
 
 class BlockItem extends React.Component{
@@ -7,11 +8,12 @@ class BlockItem extends React.Component{
     }
 
     render(){
-        let icon = this.props.icon ? this.props.icon : '';
+        const icon = this.props.icon ? this.props.icon : '';
+        const title = this.props.link ? <Link to={this.props.link}>{this.props.title}</Link> : <div>{this.props.title}</div>;
 
         return(
             <div className={styles.block_item}>
-                <h3>{this.props.title}</h3>
+                {title}
                 {icon}
                 <div>
                     {this.props.description}

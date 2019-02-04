@@ -54,6 +54,59 @@ module.exports = {
             .catch( error => res.status( 400 ).send( error ) );
     },
 
+    // TODO: Actually do this ^_^
+    favored_character_matchup( req, res ){
+        const example_data = [
+            {
+                character : 3,
+                wins : 65,
+                losses : 33,
+            },
+            {
+                character : 5,
+                wins : 80,
+                losses : 60,
+            },
+            {
+                character : 24,
+                wins : 75,
+                losses : 66,
+            }
+        ];
+        
+        return Promise.resolve( example_data )
+        .then( data => {
+            res.status( 200 ).send( data );
+        });
+    },
+
+
+     // TODO: Actually do this ^_^
+     losing_character_matchup( req, res ){
+        const example_data = [
+            {
+                character : 11,
+                wins : 31,
+                losses : 67,
+            },
+            {
+                character : 8,
+                wins : 44,
+                losses : 60,
+            },
+            {
+                character : 22,
+                wins : 11,
+                losses : 66,
+            }
+        ];
+        
+        return Promise.resolve( example_data )
+        .then( data => {
+            res.status( 200 ).send( data );
+        });
+    },
+
     user( req, res ){
         return Match
             .findAll({

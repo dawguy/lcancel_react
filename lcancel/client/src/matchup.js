@@ -1,25 +1,33 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import CharacterStats from './character_stats';
 
 class Matchup extends React.Component{
-    constructor(){
+    constructor( url ){
         super();
+
+        this.state = {
+            character_a : url.match.params.a,
+            character_b : url.match.params.b,
+        };
     }
 
     render(){
-        if( this.props.component ){
-            let component = <div>
-                <Link to="/matchup/:character_1/:character_2"></Link>
-                <Route path=""></Route>
-            </div>
-        }
-        else {
-            let component = '';
-        }
+        const character_a = this.state.character_a ? (<div>
+            <CharacterStats character={this.state.character_a}></CharacterStats>
+        </div>) : '';
+
+        const character_b = this.state.character_b ? (<div>
+            <CharacterStats character={this.state.character_b}></CharacterStats>
+        </div>) : '';
 
         return(
             <div>
-                TODO: MATCHUP
+                <div>
+                    <h1>Matchup</h1>
+                </div>
+                <div>{character_a}</div>
+                <div>{character_b}</div>
             </div>
         );
     }

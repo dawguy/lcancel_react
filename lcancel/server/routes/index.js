@@ -26,6 +26,14 @@ module.exports = ( app ) => {
         matchesController.user( req, res );
     });
 
+    app.get( '/api/matches/matchups/character/:character/favored', ( req, res ) => {
+        matchesController.favored_character_matchup( req, res );
+    });
+
+    app.get( '/api/matches/matchups/character/:character/losing', ( req, res ) => {
+        matchesController.losing_character_matchup( req, res );
+    });
+
     app.get( '/api/matches/matchups/character/:character_a/:character_b', ( req, res ) => {
         matchesController.character_matchup( req, res );
     });
