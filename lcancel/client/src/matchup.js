@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import CharacterStats from './character_stats';
+import MatchupGraphic from './matchup_graphic';
 
 class Matchup extends React.Component{
     constructor( url ){
@@ -26,8 +27,11 @@ class Matchup extends React.Component{
                 <div>
                     <h1>Matchup</h1>
                 </div>
-                <div>{character_a}</div>
-                <div>{character_b}</div>
+                <MatchupGraphic></MatchupGraphic>
+                <div>
+                    <div>{character_a}</div>
+                    <div>{character_b}</div>
+                </div>
             </div>
         );
     }
