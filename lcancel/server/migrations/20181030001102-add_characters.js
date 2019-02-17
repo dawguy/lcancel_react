@@ -45,6 +45,6 @@ module.exports = {
     /*
       None: These characters will need to always have the same PKs
     */
-
+   return queryInterface.bulkDelete( 'characters', null, {} );
   }
 };
