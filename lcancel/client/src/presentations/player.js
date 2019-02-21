@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './app.css';
+import styles from '../css/app.css';
 import GenericTable from './generic_table';
 import UserSelection from './user_selection';
 

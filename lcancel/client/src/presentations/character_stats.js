@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './app.css';
+import styles from '../css/app.css';
 
 class CharacterStats extends React.Component{
-    
+
     // Character id will be a property
     constructor(){
         super();
@@ -54,7 +54,7 @@ class CharacterStats extends React.Component{
 
     get_character(){
         const url = `http://localhost:8000/api/characters/${this.props.character}`;
-        
+
         return fetch( url )
         .then( results => results.json() );
     }

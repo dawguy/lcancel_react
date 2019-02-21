@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './app.css';
+import styles from '../css/app.css';
 
 class GenericTableLi extends React.Component {
     render() {

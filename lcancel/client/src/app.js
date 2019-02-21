@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 
-import Home from './home';
-import AddMatch from './add_match';
-import Matchup from './matchup';
+import Home from './presentations/home';
+import AddMatch from './presentations/add_match';
+import Matchup from './presentations/matchup';
 
 class App extends React.Component {
   constructor() {

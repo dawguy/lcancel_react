@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import styles from './app.css';
+import styles from '../css/app.css';
 
 class UserSuggestions extends React.Component {
     constructor(){

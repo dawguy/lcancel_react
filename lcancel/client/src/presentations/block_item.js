@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './app.css';
+import styles from '../css/app.css';
 
 class BlockItem extends React.Component{
     constructor(){

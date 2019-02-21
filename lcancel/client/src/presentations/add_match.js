@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import styles from './app.css';
+import styles from '../css/app.css';
 import _ from 'lodash';
 
 import GenericTable from './generic_table';
@@ -62,7 +62,7 @@ class AddMatch extends React.Component {
 
   get_stages() {
     const url = 'http://localhost:8000/api/stages/all';
-    
+
     return fetch( url )
     .then( results => results.json() );
   }
@@ -126,7 +126,7 @@ class AddMatch extends React.Component {
         ( typeof this.state.p2_character === 'undefined' || this.state.p2_character === null ) ||
         ( typeof this.state.p1_lives === 'undefined' || this.state.p1_lives === null ) ||
         ( typeof this.state.p2_lives === 'undefined' || this.state.p2_lives === null ) ||
-        ( typeof this.state.stage === 'undefined' || this.state.stage === null ) 
+        ( typeof this.state.stage === 'undefined' || this.state.stage === null )
       )
     {
         return false;
