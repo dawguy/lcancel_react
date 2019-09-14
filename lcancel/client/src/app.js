@@ -6,6 +6,12 @@ import Home from './presentations/home';
 import AddMatch from './presentations/add_match';
 import Matchup from './presentations/matchup';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { add_match, fetch_characters } from './redux/actions';
+
+store.dispatch( fetch_characters() );
+
 class App extends React.Component {
   constructor() {
     super();
@@ -13,20 +19,22 @@ class App extends React.Component {
 
   render() {
     return(
-      <BrowserRouter>
-        <div>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/add_match">Add Match</Link>
-          </nav>
-          <Switch>
-            <Route exact path="/" component={Home}></Route>
-            <Route path="/add_match" component={AddMatch}></Route>
-            <Route path="/matchup/characters/:a/:b" component={Matchup}></Route>
-            <Route path="/matchup/characters/:a" component={Matchup}></Route>
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+            <div>
+              <nav>
+                <Link to="/">Home</Link>
+                <Link to="/add_match">Add Match</Link>
+              </nav>
+              <Switch>
+                <Route exact path="/" component={Home}></Route>
+                <Route path="/add_match" component={AddMatch}></Route>
+                <Route path="/matchup/characters/:a/:b" component={Matchup}></Route>
+                <Route path="/matchup/characters/:a" component={Matchup}></Route>
+              </Switch>
+            </div>
+        </BrowserRouter>
+      </Provider>
     )
   }
 }

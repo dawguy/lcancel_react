@@ -7,6 +7,9 @@ import _ from 'lodash';
 import GenericTable from './generic_table';
 import Player from './player';
 
+import add_match from '../redux/reducers/match';
+
+
 class AddMatch extends React.Component {
 
   constructor() {
@@ -95,19 +98,15 @@ class AddMatch extends React.Component {
       return;
     }
 
+    dispatch( add_match())
+
     let params = {
       method : 'POST',
       headers : {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body : JSON.stringify({
-        winning_user : winner.user,
-        losing_user : loser.user,
-        winning_character : winner.character,
-        losing_character : loser.character,
-        stage : this.state.stage
-      })
+      body : JSON.stringify()
     };
 
     return fetch( url, params )
