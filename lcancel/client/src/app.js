@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import Home from './presentations/home';
 import AddMatch from './presentations/add_match';
 import Matchup from './presentations/matchup';
+import CharacterInfo from './presentations/character_info';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -29,8 +30,8 @@ class App extends React.Component {
               <Switch>
                 <Route exact path="/" component={Home}></Route>
                 <Route path="/add_match" component={AddMatch}></Route>
-                <Route path="/matchup/characters/:a/:b" component={Matchup}></Route>
-                <Route path="/matchup/characters/:a" component={Matchup}></Route>
+                <Route path="/matchup/characters/:character_a/:character_b" component={Matchup}></Route>
+                <Route path="/matchup/characters/:character" component={CharacterInfo}></Route>
               </Switch>
             </div>
         </BrowserRouter>

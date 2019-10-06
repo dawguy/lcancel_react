@@ -26,37 +26,30 @@ class CharacterStats extends React.Component{
     componentDidMount() {
         this._is_mounted = true;
 
-        Promise.all( [this.get_character(), this.get_matchups()])
-            .then( ( [character_info, matchups] ) => {
-                let match_info = matchups.matchups;
+        // Promise.all( [this.get_character(), this.get_matchups()])
+        //     .then( ( [character_info, matchups] ) => {
+        //         let match_info = matchups.matchups;
 
-                const counts = match_info.reduce( ( acc, match ) => {
-                    if( match.winning_character == this.props.character ){
-                        acc.wins += 1;
-                    }
-                    else{
-                        acc.losses += 1;
-                    }
+        //         const counts = match_info.reduce( ( acc, match ) => {
+        //             if( match.winning_character == this.props.character ){
+        //                 acc.wins += 1;
+        //             }
+        //             else{
+        //                 acc.losses += 1;
+        //             }
 
-                    return acc;
-                }, { wins : 0, losses : 0 });
+        //             return acc;
+        //         }, { wins : 0, losses : 0 });
 
-                this.setState({
-                    character : character_info[0],
-                    matches_played : match_info.length,
-                    wins : counts.wins,
-                    losses : counts.losses,
-                    losing_matchups : matchups.losing,
-                    favored_matchups : matchups.favored,
-                });
-            });
-    }
-
-    get_character(){
-        const url = `http://localhost:8000/api/characters/${this.props.character}`;
-
-        return fetch( url )
-        .then( results => results.json() );
+        //         this.setState({
+        //             character : character_info[0],
+        //             matches_played : match_info.length,
+        //             wins : counts.wins,
+        //             losses : counts.losses,
+        //             losing_matchups : matchups.losing,
+        //             favored_matchups : matchups.favored,
+        //         });
+        //     });
     }
 
     get_matchups(){

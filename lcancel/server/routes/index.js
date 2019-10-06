@@ -38,6 +38,10 @@ module.exports = ( app ) => {
         matchesController.character_matchup( req, res );
     });
 
+    app.get( '/api/matches/matchups/character/:character', ( req, res ) => {
+        matchesController.character( req, res );
+    });
+
     app.get( '/api/matches/matchups/user/:user_a/:user_b', ( req, res ) => {
         matchesController.user_matchup( req, res );
     });

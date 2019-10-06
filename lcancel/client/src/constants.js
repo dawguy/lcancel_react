@@ -14,11 +14,17 @@ export const initialState = {
     },
     characters : {
         isFetching : false,
-        items : [],
+        all : [],
+        byId : {},
     },
-    matchups : {
+    matches : {
         isFetching : false,
         didInvalidate : false,
-        items : [],
+        recent : [],
+        byId : {},
+        byCharacter : {},
+        byCharacterMatchup : {},
+        byUser : {},
+        byUserMatchup : {},
     },
 };
