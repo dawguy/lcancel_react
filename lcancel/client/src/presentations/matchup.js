@@ -4,27 +4,24 @@ import CharacterStats from './character_stats';
 import MatchupGraphic from './matchup_graphic';
 
 import store from '../redux/store';
+import {connect} from 'react-redux';
 import {fetch_character_matchup} from '../redux/actions'
+import { getCharacterMatchupMatches } from '../redux/selectors';
 
 class Matchup extends React.Component{
     constructor( url ){
         super();
 
         store.dispatch( fetch_character_matchup( url.match.params.character_a, url.match.params.character_b ) );
-
-        this.state = {
-            character_a : url.match.params.a,
-            character_b : url.match.params.b,
-        };
     }
 
     render(){
-        const character_a = this.state.character_a ? (<div>
-            <CharacterStats character={this.state.character_a}></CharacterStats>
+        const character_a = this.props.character_a ? (<div>
+            <CharacterStats matches={this.props.matches} character={this.props.character_a}></CharacterStats>
         </div>) : '';
 
-        const character_b = this.state.character_b ? (<div>
-            <CharacterStats character={this.state.character_b}></CharacterStats>
+        const character_b = this.props.character_b ? (<div>
+            <CharacterStats matches={this.props.matches} character={this.props.character_b}></CharacterStats>
         </div>) : '';
 
         return(
@@ -41,5 +38,23 @@ class Matchup extends React.Component{
         );
     }
 }
+
+const mapStateToProps = ( state, ownProps ) => {
+    const matches = getCharacterMatchupMatches(
+        state,
+        ownProps.match.params.character_a,
+        ownProps.match.params.character_b
+    );
+
+    return {
+        character_a : ownProps.match.params.character_a,
+        character_b : ownProps.match.params.character_b,
+        matches     : matches,
+    };
+};
+
+Matchup = connect(
+    mapStateToProps,
+)( Matchup );
 
 module.exports = Matchup;

@@ -17,12 +17,12 @@ class CharacterStats extends React.Component{
     }
 
     render(){
-        if( this.props.character )
+        const character_name = this.props.character.name ? this.props.character.name : 'Character Not Found';
 
         return(
             <div>
                 <div className={styles.character_stats}>
-                    <h1>{this.props.character.name}</h1>
+                    <h1>{character_name}</h1>
                     <div className={styles.stat}>Matches: {this.props.matches.length}</div>
                     <div className={styles.stat}>Wins: {this.props.wins.length}</div>
                     <div className={styles.stat}>Losses: {this.props.losses.length}</div>
@@ -47,8 +47,8 @@ class CharacterStats extends React.Component{
 }
 
 const mapStateToProps = ( state, ownProps ) => {
-    const matches = getCharacterMatches( state, ownProps.character );
     const character = getCharacterById( state, ownProps.character );
+    const matches = ownProps.matches ? ownProps.matches : getCharacterMatches( state, ownProps.character );
 
     return {
         character : character,

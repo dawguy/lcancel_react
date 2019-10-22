@@ -1,7 +1,13 @@
-export const getCharacterMatchupList = ( store, character_a, character_b ) =>
-    store && store.matches && store.matches.byCharacterMatchup && store.matches.byCharacterMatchup[character_a] && store.matches.byCharacterMatchup[character_a][character_b]     
+export const getCharacterMatchupList = ( store, character_a, character_b ) => {
+    const winning_matches = store && store.matches && store.matches.byCharacterMatchup && store.matches.byCharacterMatchup[character_a] && store.matches.byCharacterMatchup[character_a][character_b]     
         ? store.matches.byCharacterMatchup[character_a][character_b]
         : [];
+    const losing_matches = store && store.matches && store.matches.byCharacterMatchup && store.matches.byCharacterMatchup[character_b] && store.matches.byCharacterMatchup[character_b][character_a]     
+        ? store.matches.byCharacterMatchup[character_b][character_a]
+        : [];
+
+    return winning_matches.concat( losing_matches );
+}
 
 export const getCharacterMatchesList = ( store, character ) =>
     store && store.matches && store.matches.byCharacter && store.matches.byCharacter[character]
