@@ -15,10 +15,6 @@ class AddMatch extends React.Component {
   constructor() {
     super();
     this.state = {
-      p1_user_name : null,
-      p2_user_name : null,
-      p1_user_id : null,
-      p2_user_id : null,
       p1_character : null,
       p2_character : null,
       p1_lives : 4,
@@ -33,7 +29,6 @@ class AddMatch extends React.Component {
     this.changeStage = this.changeStage.bind( this );
     this.changeCharacter = this.changeCharacter.bind( this );
     this.changeLives = this.changeLives.bind( this );
-    this.changeUser = this.changeUser.bind( this );
     this.handleSubmit = this.handleSubmit.bind( this );
   }
 
@@ -78,12 +73,10 @@ class AddMatch extends React.Component {
     }
 
     let winner = {
-      user : this.state.p1_user_id,
       character : this.state.p1_character,
     };
     let loser = {
-      user : this.state.p2_user_id,
-      character : this.state.p2_user_id,
+      character : this.state.p2_character,
     };
 
     if( this.state.p2_lives > this.state.p1_lives ){
@@ -119,9 +112,7 @@ class AddMatch extends React.Component {
   }
 
   validate_state(){
-    if( ( typeof this.state.p1_user_id === 'undefined' || this.state.p1_user_id === null ) ||
-        ( typeof this.state.p2_user_id === 'undefined' || this.state.p2_user_id === null ) ||
-        ( typeof this.state.p1_character === 'undefined' || this.state.p1_character === null ) ||
+    if( ( typeof this.state.p1_character === 'undefined' || this.state.p1_character === null ) ||
         ( typeof this.state.p2_character === 'undefined' || this.state.p2_character === null ) ||
         ( typeof this.state.p1_lives === 'undefined' || this.state.p1_lives === null ) ||
         ( typeof this.state.p2_lives === 'undefined' || this.state.p2_lives === null ) ||
@@ -131,11 +122,7 @@ class AddMatch extends React.Component {
         return false;
     }
 
-    if( this.state.p1_user_id === this.state.p2_user_id ){
-      return false;
-    }
-
-      return true;
+    return true;
   }
 
   changeLives( e, id, player_number ) {
@@ -151,19 +138,6 @@ class AddMatch extends React.Component {
 
     this.setState( state => ({
       [prop_name] : id,
-    }));
-  }
-
-  changeUser( e, player_number ) {
-    let prop_name = `p${player_number}_user_name`;
-    let prop_id = `p${player_number}_user_id`;
-
-    let name = e.target.getAttribute( 'data-name' );
-    let id = e.target.value;
-
-    this.setState( state => ({
-      [prop_name] : name,
-      [prop_id] : id,
     }));
   }
 
@@ -185,8 +159,8 @@ class AddMatch extends React.Component {
     return(
       <div>
         <div className={styles.players}>
-          <Player user_name={this.state.p1_user_name} player_class={styles.player_1} characters={this.state.characters} player_number={1} selected_character={this.state.p1_character} lives={lives} selected_live={this.state.p1_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter} user_click_handler={this.changeUser}></Player>
-          <Player user_name={this.state.p2_user_name} player_class={styles.player_2} characters={this.state.characters} player_number={2} selected_character={this.state.p2_character} lives={lives} selected_live={this.state.p2_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter} user_click_handler={this.changeUser}></Player>
+          <Player player_class={styles.player_1} characters={this.state.characters} player_number={1} selected_character={this.state.p1_character} lives={lives} selected_live={this.state.p1_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter}></Player>
+          <Player player_class={styles.player_2} characters={this.state.characters} player_number={2} selected_character={this.state.p2_character} lives={lives} selected_live={this.state.p2_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter}></Player>
         </div>
         <GenericTable table_label={'Stages'} click_handler={this.changeStage} list_items={this.state.stages} selected_li={this.state.stage} list_style={styles.stages}></GenericTable>
         <button onClick={this.handleSubmit} className={styles.submit}>Submit</button>

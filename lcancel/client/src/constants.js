@@ -1,12 +1,10 @@
 export const initialState = {
     match : {    
         player_a : {
-            user : null,
             character : null,
             lives : null
         },
         player_b : {
-            user : null,
             character : null,
             lives : null
         },
@@ -24,7 +22,5 @@ export const initialState = {
         byId : {},
         byCharacter : {},
         byCharacterMatchup : {},
-        byUser : {},
-        byUserMatchup : {},
     },
 };
