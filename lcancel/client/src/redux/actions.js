@@ -1,7 +1,22 @@
+import {LOAD_STAGE_FAILURE,LOAD_STAGE_REQUEST,LOAD_STAGE_SUCCESS} from '../actionTypes';
 import {LOAD_CHARACTER_FAILURE,LOAD_CHARACTER_REQUEST,LOAD_CHARACTER_SUCCESS} from '../actionTypes';
 import {LOAD_CHARACTER_MATCHES_FAILURE,LOAD_CHARACTER_MATCHES_REQUEST,LOAD_CHARACTER_MATCHES_SUCCESS} from '../actionTypes';
 import {LOAD_CHARACTER_MATCHUP_FAILURE,LOAD_CHARACTER_MATCHUP_REQUEST,LOAD_CHARACTER_MATCHUP_SUCCESS} from '../actionTypes';
 import {ADD_MATCH} from '../actionTypes';
+
+export const load_stages_request = () => ({
+    type : LOAD_STAGE_REQUEST,
+});
+
+export const load_stages_success = ( data ) => ({
+    type   : LOAD_STAGE_SUCCESS,
+    stages : data,
+});
+
+export const load_stages_failure = ( err ) => ({
+    type   : LOAD_STAGE_FAILURE,
+    stages : [],
+});
 
 export const load_characters_request = () => ({
     type : LOAD_CHARACTER_REQUEST,
@@ -56,6 +71,22 @@ export const add_match = ( match ) => ({
     type  : ADD_MATCH,
     match : match,
 });
+
+export function fetch_stages(){
+    return function( dispatch ){
+        dispatch( load_stages_request );
+
+        return fetch( 'http://localhost:8000/api/stages/all' )
+            .then(
+                response => response.json(),
+                error => console.log( 'An error occured', error )
+            )
+            .then( json => {
+                    dispatch( load_stages_success( json ) );
+                }
+            )
+    }
+}
 
 export function fetch_characters(){
     return function( dispatch ){

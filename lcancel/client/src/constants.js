@@ -15,6 +15,11 @@ export const initialState = {
         all : [],
         byId : {},
     },
+    stages : {
+        isFetching : false,
+        all : [],
+        byId : {},
+    },
     matches : {
         isFetching : false,
         didInvalidate : false,

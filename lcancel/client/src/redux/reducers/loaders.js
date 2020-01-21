@@ -1,7 +1,33 @@
+import {LOAD_STAGE_REQUEST, LOAD_STAGE_SUCCESS, LOAD_STAGE_FAILURE} from '../../actionTypes';
 import {LOAD_CHARACTER_REQUEST, LOAD_CHARACTER_SUCCESS, LOAD_CHARACTER_FAILURE} from '../../actionTypes';
 import {LOAD_CHARACTER_MATCHES_REQUEST, LOAD_CHARACTER_MATCHES_SUCCESS, LOAD_CHARACTER_MATCHES_FAILURE} from '../../actionTypes';
 import {LOAD_CHARACTER_MATCHUP_REQUEST, LOAD_CHARACTER_MATCHUP_SUCCESS, LOAD_CHARACTER_MATCHUP_FAILURE} from '../../actionTypes';
 
+const stages = ( state = {
+    isFetching : false,
+    all : [],
+    byId : {},
+}, action ) => {
+    switch( action.type ){
+        case LOAD_STAGE_REQUEST:
+            return Object.assign({}, state, {
+                isFetching : true,
+            });
+        case LOAD_STAGE_SUCCESS:
+            return Object.assign({}, state, {
+                isFetching : false,
+                all : action.stages,
+                byId : action.stages.reduce( ( acc, stage ) => {
+                    acc[stage.id] = stage;
+                    return acc;
+                }, {} ),
+            });
+        case LOAD_STAGE_FAILURE:
+            break;
+        default:
+            return state;
+    }
+};
 
 const characters = ( state = {
     isFetching : false,
@@ -110,4 +136,4 @@ const assign_matches_by_id = ( state = {}, matches ) => {
     return Object.assign({}, state, new_matches );
 }
 
-export {characters, matches};
+export {characters, matches, stages};

@@ -9,9 +9,10 @@ import CharacterInfo from './presentations/character_info';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { add_match, fetch_characters } from './redux/actions';
+import { add_match, fetch_characters, fetch_stages } from './redux/actions';
 
 store.dispatch( fetch_characters() );
+store.dispatch( fetch_stages() );
 
 class App extends React.Component {
   constructor() {

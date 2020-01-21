@@ -169,4 +169,15 @@ class AddMatch extends React.Component {
   }
 }
 
+
+const mapStateToProps = ( state, ownProps ) => {
+  const characters = getCharacters( state );
+  const stages = getStages( state );
+
+  return {
+    characters : characters,
+    stages : stages
+  };
+};
+
 module.exports = AddMatch;
