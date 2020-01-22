@@ -2,11 +2,11 @@ export const initialState = {
     match : {    
         player_a : {
             character : null,
-            lives : null
+            lives : 4
         },
         player_b : {
             character : null,
-            lives : null
+            lives : 4
         },
         stage : null
     },

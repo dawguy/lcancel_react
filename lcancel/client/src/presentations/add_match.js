@@ -7,62 +7,16 @@ import _ from 'lodash';
 import GenericTable from './generic_table';
 import Player from './player';
 
-import add_match from '../redux/reducers/match';
-
+import store from '../redux/store';
+import {add_match} from '../redux/reducers/match';
+import {select_lives, select_character, select_stage} from '../redux/actions';
+import {connect} from 'react-redux';
+import {getCharacters, getStages, getMatch} from '../redux/selectors';
 
 class AddMatch extends React.Component {
 
   constructor() {
     super();
-    this.state = {
-      p1_character : null,
-      p2_character : null,
-      p1_lives : 4,
-      p2_lives : 4,
-      stage : 1,
-      characters : [],
-      stages : [],
-    };
-
-    this._is_mounted = false;
-
-    this.changeStage = this.changeStage.bind( this );
-    this.changeCharacter = this.changeCharacter.bind( this );
-    this.changeLives = this.changeLives.bind( this );
-    this.handleSubmit = this.handleSubmit.bind( this );
-  }
-
-  componentDidMount() {
-    this._is_mounted = true;
-
-    Promise.all( [this.get_characters(), this.get_stages()] )
-    .then( ( [characters, stages] ) => {
-
-      if( this._is_mounted ){
-        this.setState({
-          characters : characters,
-          stages : stages,
-        });
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    this._is_mounted = false;
-  }
-
-  get_characters() {
-    const url = 'http://localhost:8000/api/characters/all';
-
-    return fetch( url )
-    .then( results => results.json() );
-  }
-
-  get_stages() {
-    const url = 'http://localhost:8000/api/stages/all';
-
-    return fetch( url )
-    .then( results => results.json() );
   }
 
   handleSubmit( e ){
@@ -91,7 +45,7 @@ class AddMatch extends React.Component {
       return;
     }
 
-    dispatch( add_match())
+    dispatch( add_match() )
 
     let params = {
       method : 'POST',
@@ -126,25 +80,15 @@ class AddMatch extends React.Component {
   }
 
   changeLives( e, id, player_number ) {
-    let prop_name = `p${player_number}_lives`;
-
-    this.setState( state => ({
-      [prop_name] : id,
-    }));
+    store.dispatch( select_lives( player_number, id ) );
   }
 
   changeCharacter( e, id, player_number ) {
-    let prop_name = `p${player_number}_character`;
-
-    this.setState( state => ({
-      [prop_name] : id,
-    }));
+    store.dispatch( select_character( player_number, id ) );
   }
 
   changeStage( e, id ) {
-    this.setState( state => ({
-      stage : id,
-    }));
+    store.dispatch( select_stage( id ) );
   }
 
   render() {
@@ -159,10 +103,23 @@ class AddMatch extends React.Component {
     return(
       <div>
         <div className={styles.players}>
-          <Player player_class={styles.player_1} characters={this.state.characters} player_number={1} selected_character={this.state.p1_character} lives={lives} selected_live={this.state.p1_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter}></Player>
-          <Player player_class={styles.player_2} characters={this.state.characters} player_number={2} selected_character={this.state.p2_character} lives={lives} selected_live={this.state.p2_lives} lives_click_handler={this.changeLives} characters_click_handler={this.changeCharacter}></Player>
+          <Player player_class={styles.player_1}
+                  characters={this.props.characters}
+                  player_number={1}
+                  lives={lives}
+                  lives_click_handler={this.changeLives}
+                  characters_click_handler={this.changeCharacter}
+                  selected_character={this.props.match.player_a.character}
+                  selected_lives={this.props.match.player_a.lives}></Player>
+          <Player player_class={styles.player_2} 
+                  characters={this.props.characters} 
+                  player_number={2} lives={lives} 
+                  lives_click_handler={this.changeLives} 
+                  characters_click_handler={this.changeCharacter}
+                  selected_character={this.props.match.player_b.character}
+                  selected_lives={this.props.match.player_b.lives}></Player>
         </div>
-        <GenericTable table_label={'Stages'} click_handler={this.changeStage} list_items={this.state.stages} selected_li={this.state.stage} list_style={styles.stages}></GenericTable>
+        <GenericTable table_label={'Stages'} click_handler={this.changeStage} list_items={this.props.stages} selected_li={this.props.match.stage} list_style={styles.stages}></GenericTable>
         <button onClick={this.handleSubmit} className={styles.submit}>Submit</button>
       </div>
     )
@@ -173,11 +130,15 @@ class AddMatch extends React.Component {
 const mapStateToProps = ( state, ownProps ) => {
   const characters = getCharacters( state );
   const stages = getStages( state );
+  const match = getMatch( state );
 
   return {
     characters : characters,
-    stages : stages
+    stages : stages,
+    match : match,
   };
 };
+
+AddMatch = connect( mapStateToProps )( AddMatch );
 
 module.exports = AddMatch;

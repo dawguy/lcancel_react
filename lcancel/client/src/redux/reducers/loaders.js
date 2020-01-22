@@ -16,7 +16,7 @@ const stages = ( state = {
         case LOAD_STAGE_SUCCESS:
             return Object.assign({}, state, {
                 isFetching : false,
-                all : action.stages,
+                all : action.stages.map( stage => stage.id ),
                 byId : action.stages.reduce( ( acc, stage ) => {
                     acc[stage.id] = stage;
                     return acc;
@@ -42,7 +42,7 @@ const characters = ( state = {
         case LOAD_CHARACTER_SUCCESS:
             return Object.assign({}, state, {
                 isFetching : false,
-                all : action.characters,
+                all : action.characters.map( character => character.id ),
                 byId : action.characters.reduce( ( acc, character ) => {
                     acc[character.id] = character;
                     return acc;

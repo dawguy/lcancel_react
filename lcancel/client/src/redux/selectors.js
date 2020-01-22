@@ -37,3 +37,21 @@ export const getCharacterMatches = ( store, character ) =>
 
 export const getCharacterMatchupMatches = ( store, character_a, character_b ) =>
     getCharacterMatchupList( store, character_a, character_b ).map( id => getMatchById( store, id ) );
+
+export const getStages = ( store ) =>
+    getStagesList( store ).map( id => getStageById( store, id ) );
+
+export const getStageById = ( store, id ) =>
+    store && store.stages && store.stages.byId && store.stages.byId[id]
+        ? store.stages.byId[id]
+        : {};
+
+export const getStagesList = ( store ) =>
+    store && store.stages && store.stages.all
+        ? store.stages.all
+        : [];
+
+export const getMatch = ( store ) =>
+    store && store.match
+        ? store.match
+        : {};

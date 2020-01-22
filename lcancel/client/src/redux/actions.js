@@ -2,7 +2,7 @@ import {LOAD_STAGE_FAILURE,LOAD_STAGE_REQUEST,LOAD_STAGE_SUCCESS} from '../actio
 import {LOAD_CHARACTER_FAILURE,LOAD_CHARACTER_REQUEST,LOAD_CHARACTER_SUCCESS} from '../actionTypes';
 import {LOAD_CHARACTER_MATCHES_FAILURE,LOAD_CHARACTER_MATCHES_REQUEST,LOAD_CHARACTER_MATCHES_SUCCESS} from '../actionTypes';
 import {LOAD_CHARACTER_MATCHUP_FAILURE,LOAD_CHARACTER_MATCHUP_REQUEST,LOAD_CHARACTER_MATCHUP_SUCCESS} from '../actionTypes';
-import {ADD_MATCH} from '../actionTypes';
+import {ADD_MATCH,SELECT_CHARACTER,SELECT_STAGE,SELECT_LIVES} from '../actionTypes';
 
 export const load_stages_request = () => ({
     type : LOAD_STAGE_REQUEST,
@@ -70,6 +70,23 @@ export const load_character_matches_failure = ( pk_character ) => ({
 export const add_match = ( match ) => ({
     type  : ADD_MATCH,
     match : match,
+});
+
+export const select_character = ( player, character ) => ({
+    type      : SELECT_CHARACTER,
+    player    : player,
+    character : character,
+});
+
+export const select_lives = ( player, lives ) => ({
+    type   : SELECT_LIVES,
+    player : player,
+    lives  : lives,
+});
+
+export const select_stage = ( stage ) => ({
+    type   : SELECT_STAGE,
+    stage  : stage,
 });
 
 export function fetch_stages(){
