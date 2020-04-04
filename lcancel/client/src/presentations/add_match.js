@@ -9,7 +9,7 @@ import Player from './player';
 
 import store from '../redux/store';
 import {add_match} from '../redux/reducers/match';
-import {select_lives, select_character, select_stage} from '../redux/actions';
+import {select_lives, select_character, select_stage, send_create_match_request} from '../redux/actions';
 import {connect} from 'react-redux';
 import {getCharacters, getStages, getMatch} from '../redux/selectors';
 
@@ -17,60 +17,33 @@ class AddMatch extends React.Component {
 
   constructor() {
     super();
+
+    this.handleSubmit   = this.handleSubmit.bind( this );
+    this.validate_state = this.validate_state.bind( this );
   }
 
   handleSubmit( e ){
-    const url = 'http://localhost:8000/api/matches';
     if( !this.validate_state() ){
       alert( 'Invalid match attributes' );
       return;
     }
 
-    let winner = {
-      character : this.state.p1_character,
-    };
-    let loser = {
-      character : this.state.p2_character,
-    };
-
-    if( this.state.p2_lives > this.state.p1_lives ){
-      let temp = winner;
-      winner = loser;
-      loser = temp;
-    }
-    else if( this.state.p2_lives !== 0 && this.state.p1_lives !== 0 &&
-             ( this.state.p2_lives === 0 && this.state.p1_lives === 0 )
-           ){
-      alert( 'We do not currently accept draws' );
+    if( this.props.match.player_b.lives !== 0 && this.props.match.player_b.lives !== 0 &&
+        ( this.props.match.player_b.lives === 0 && this.props.match.player_b.lives === 0 )
+      ){
+      alert( 'Game can not end in a draw.' );
       return;
     }
 
-    dispatch( add_match() )
-
-    let params = {
-      method : 'POST',
-      headers : {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body : JSON.stringify()
-    };
-
-    return fetch( url, params )
-    .then( (json) => {
-      this.setState({
-        p1_lives : 4,
-        p2_lives : 4,
-      });
-    });
+    store.dispatch( send_create_match_request( this.props.match ) );
   }
 
   validate_state(){
-    if( ( typeof this.state.p1_character === 'undefined' || this.state.p1_character === null ) ||
-        ( typeof this.state.p2_character === 'undefined' || this.state.p2_character === null ) ||
-        ( typeof this.state.p1_lives === 'undefined' || this.state.p1_lives === null ) ||
-        ( typeof this.state.p2_lives === 'undefined' || this.state.p2_lives === null ) ||
-        ( typeof this.state.stage === 'undefined' || this.state.stage === null )
+    if( ( typeof this.props.match.player_b.character === 'undefined' || this.props.match.player_b.character === null ) ||
+        ( typeof this.props.match.player_b.character === 'undefined' || this.props.match.player_b.character === null ) ||
+        ( typeof this.props.match.player_a.lives === 'undefined' || this.props.match.player_a.lives === null ) ||
+        ( typeof this.props.match.player_a.lives === 'undefined' || this.props.match.player_a.lives === null ) ||
+        ( typeof this.props.match.stage === 'undefined' || this.props.match.stage === null )
       )
     {
         return false;

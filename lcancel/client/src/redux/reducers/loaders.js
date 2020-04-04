@@ -58,7 +58,6 @@ const characters = ( state = {
 const matches = ( state = {
     isFetching : false,
     didInvalidte : false,
-    current      : [],
     byId : {},
     byCharacter : {},
     byCharacterMatchup : {},

@@ -3,6 +3,9 @@ import {LOAD_CHARACTER_FAILURE,LOAD_CHARACTER_REQUEST,LOAD_CHARACTER_SUCCESS} fr
 import {LOAD_CHARACTER_MATCHES_FAILURE,LOAD_CHARACTER_MATCHES_REQUEST,LOAD_CHARACTER_MATCHES_SUCCESS} from '../actionTypes';
 import {LOAD_CHARACTER_MATCHUP_FAILURE,LOAD_CHARACTER_MATCHUP_REQUEST,LOAD_CHARACTER_MATCHUP_SUCCESS} from '../actionTypes';
 import {ADD_MATCH,SELECT_CHARACTER,SELECT_STAGE,SELECT_LIVES} from '../actionTypes';
+import {CREATE_MATCH_FAILURE,CREATE_MATCH_REQUEST,CREATE_MATCH_SUCCESS} from '../actionTypes';
+import {INVALIDATE_MATCHES} from '../actionTypes';
+
 
 export const load_stages_request = () => ({
     type : LOAD_STAGE_REQUEST,
@@ -72,6 +75,10 @@ export const add_match = ( match ) => ({
     match : match,
 });
 
+export const reset_match = () => ({
+    type : RESET_MATCH,
+});
+
 export const select_character = ( player, character ) => ({
     type      : SELECT_CHARACTER,
     player    : player,
@@ -87,6 +94,18 @@ export const select_lives = ( player, lives ) => ({
 export const select_stage = ( stage ) => ({
     type   : SELECT_STAGE,
     stage  : stage,
+});
+
+export const invalidate_matches = () => ({
+    type : INVALIDATE_MATCHES,
+});
+
+export const create_match_success = () => ({
+    type : CREATE_MATCH_SUCCESS,
+});
+
+export const create_match_failure = () => ({
+    type : CREATE_MATCH_FAILURE,
 });
 
 export function fetch_stages(){
@@ -155,6 +174,54 @@ export function fetch_character_matchup( pk_character_a, pk_character_b ){
                 var data = json;
 
                 dispatch( load_character_matchup_success( pk_character_a, pk_character_b, data ) );
+            });
+    }
+}
+
+export function send_create_match_request( match ){
+    return function( dispatch ){
+        var json;
+
+        // Hard coding the users here because I reduced the scope of this
+        // project to not use users for now. It'll only track character matchups
+        // for a while.
+        if( match.player_a.lives > match.player_b.lives ){
+            json = {
+                winning_character : match.player_a.character,
+                losing_character : match.player_b.character,
+                winning_user : 1,
+                losing_user : 2,
+                stages : match.stage,
+            };
+        } else {
+            json = {
+                winning_character : match.player_b.character,
+                losing_character : match.player_a.character,
+                winning_user : 2,
+                losing_user : 1,
+                stages : match.stage,
+            };
+        }
+
+        const url = 'http://localhost:8000/api/matches';
+        let params = {
+            method : 'POST',
+            headers : {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body : JSON.stringify( json )
+          };
+      
+          return fetch( url, params )
+            .then( response =>
+            {
+                dispatch( invalidate_matches() );
+                dispatch( create_match_success() );
+            },
+            response =>
+            {
+                dispatch( create_match_failure );
             });
     }
 }

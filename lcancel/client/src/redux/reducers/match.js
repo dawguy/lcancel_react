@@ -1,4 +1,5 @@
-import {ADD_MATCH, SELECT_CHARACTER, SELECT_STAGE, SELECT_LIVES} from '../../actionTypes';
+import {RESET_MATCH, SELECT_CHARACTER, SELECT_STAGE, SELECT_LIVES} from '../../actionTypes';
+import {ADD_MATCH,CREATE_MATCH_REQUEST,CREATE_MATCH_SUCCESS, CREATE_MATCH_FAILURE} from '../../actionTypes';
 
 const match = ( state = {
     player_a : {
@@ -9,7 +10,8 @@ const match = ( state = {
         character : null,
         lives : null
     },
-    stage : null
+    stage : null,
+    isAdding : false,
 }, action ) => {
     switch( action.type ){
         case SELECT_CHARACTER:
@@ -26,13 +28,42 @@ const match = ( state = {
             return Object.assign({}, state, {
                 [player_choice] : player( state[player_choice], action ),
             });
-        case ADD_MATCH:
-            var new_match = {
-                winning_character : action.character_a,
-                losing_character : action.character_b,
-                stage : action.stage
+        case RESET_MATCH:
+            return Object.assign({}, state, {
+                player_a : {
+                    character : null,
+                    lives : 4
+                },
+                player_b : {
+                    character : null,
+                    lives : 4
+                },
+                stage : null,
+                isAdding : false,
+            });
+        case CREATE_MATCH_REQUEST:
+            return Object.assign({}, state, {
+                isAdding : true,
+            });
+        case CREATE_MATCH_SUCCESS:
+            const player_a = {
+                character : state.player_a.character,
+                lives : 4,
             };
-            state.matches.push( new_match );
+            const player_b = {
+                character : state.player_b.character,
+                lives : 4,
+            };
+            return Object.assign({}, state, {
+                player_a : player_a,
+                player_b : player_b,
+                isAdding : false,
+            });
+        case CREATE_MATCH_FAILURE:
+            // TODO: This will need to notify the user somehow
+            return Object.assign({}, state, {
+                isAdding : false,
+            });
         default:
             return state;
     }
@@ -56,20 +87,21 @@ const player = ( state = {
     }
 };
 
-// TODO: ADD_MATCH still needs to be implemented. It needs to take the existing state
-// and send a server request + add the match to the list of matches. 
-const matches = ( state = {}, action ) => {
+const matches = ( state = {
+    isFetching : false,
+    didInvalidate : false,
+    byId : {},
+    byCharacter : {},
+    byCharacterMatchup : {},
+}, action ) => {
     switch( action.type ){
-        case ADD_MATCH:
-            var new_match = {
-                winning_character : action.character_a,
-                losing_character : action.character_b,
-                stage : action.stage
-            };
-            state.matches.push( new_match );
+        case INVALIDATE_MATCHES:
+            return Object.assign({}, state, {
+                didInvalidate : true,
+            });
         default:
             return state;
     }
 };
 
-export {match};
+export {match, matches};

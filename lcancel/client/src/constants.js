@@ -8,7 +8,8 @@ export const initialState = {
             character : null,
             lives : 4
         },
-        stage : null
+        stage : null,
+        isAdding : false,
     },
     characters : {
         isFetching : false,
@@ -23,7 +24,6 @@ export const initialState = {
     matches : {
         isFetching : false,
         didInvalidate : false,
-        recent : [],
         byId : {},
         byCharacter : {},
         byCharacterMatchup : {},
